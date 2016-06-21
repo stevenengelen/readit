@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Book
 from .models import Author
@@ -35,7 +35,7 @@ class AuthorDetail(DetailView) :
 
 
 # Paste into Views.py - don't forget to import get_object_or_404!    
-def review_books(request):
+def review_books(request) :
     """
     List all of the books that we want to review.
     """
@@ -48,11 +48,26 @@ def review_books(request):
     return render(request, "list-to-review.html", context)
                                
                                 
-def review_book(request, pk):
+def review_book(request, pk) :
     """
     Review an individual book
     """
     book = get_object_or_404(Book, pk=pk)
+
+    if request.method == 'POST' :
+        # If there is a POST in the request, we process the filled in form
+        form = ReviewForm(request.POST)
+
+        if form.is_valid() :
+            # Here we write the data from our form in the model
+            book.is_favourite = form.cleaned_data['is_favourite']
+            print(form.cleaned_data['is_favourite'])
+            book.review = form.cleaned_data['review']
+            book.save()
+
+            # We then redirect tot the review books page, since this review is done
+            return redirect('review-books')
+    # If there is no POST in the request, we just display the form, because it hasn't been filled in (yet)
     form = ReviewForm
                                          
     context = {
