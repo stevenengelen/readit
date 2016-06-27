@@ -5,6 +5,8 @@ from .models import Author
 from django.views.generic import View, DetailView
 from django.db.models import Count
 from .forms import ReviewForm, BookForm
+from django.core.urlresolvers import reverse
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 
@@ -92,3 +94,14 @@ def review_book(request, pk) :
     }
                                              
     return render(request, "review-book.html", context)
+
+class CreateAuthor(CreateView) :
+    # we inherit from CreateView, for a model based generic form
+    # we need to define which model, which fields in this model, which template and to which url we are solving in case of succes
+    model = Author
+    fields = ['name',]
+    template_name = "create-author.html"
+
+    def get_success_url(self) :
+        return reverse('review-books')
+

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.timezone import now
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Book(models.Model) :
@@ -28,3 +29,7 @@ class Author(models.Model) :
 
     def __str__(self) :
         return self.name
+
+    def get_absolute_url(self) :
+        # takes a name, and returns the url
+        return reverse('author-details', kwargs = {'pk', self.pk})
