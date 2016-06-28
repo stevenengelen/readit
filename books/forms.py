@@ -28,3 +28,19 @@ class BookForm(forms.ModelForm) :
         # and the field of the model to display (default displays all fields)
         fields = ['title', 'authors']
 
+    def clean(self) :
+        # Super the clean method to maintain main validation and error messages
+        super(BookForm, self).clean()
+
+        try :
+            title = self.cleaned_data.get('title')
+            authors = self.cleaned_data.get('authors')
+            book = Book.objects.get(title = title, authors = authors)
+
+            raise forms.ValidationError(
+                    'The book {} by {} already exists'.format(title, book.list_authors()), 
+                    code = 'bookexists'
+                    )
+
+        except Book.DoesNotExist :
+            return self.cleaned_data

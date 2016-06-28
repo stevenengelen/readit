@@ -52,7 +52,7 @@ class ReviewList(View) :
 
     def post(self, request) :
         form = BookForm(request.POST)
-        books = Book.objects.filter(date_reviewed__isnull=True).prefetch_related('authors')
+        book = Book.objects.filter(date_reviewed__isnull=True).prefetch_related('authors')
 
         if form.is_valid() :
             # we only need to call the save method on the form
