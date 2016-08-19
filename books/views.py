@@ -81,6 +81,7 @@ def review_book(request, pk) :
             book.is_favourite = form.cleaned_data['is_favourite']
             print(form.cleaned_data['is_favourite'])
             book.review = form.cleaned_data['review']
+            book.reviewed_by = request.user
             book.save()
 
             # We then redirect tot the review books page, since this review is done

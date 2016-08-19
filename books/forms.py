@@ -26,7 +26,7 @@ class BookForm(forms.ModelForm) :
         # first, the model to use in in this model form
         model = Book
         # and the field of the model to display (default displays all fields)
-        fields = ['title', 'authors']
+        fields = ['title', 'authors', 'reviewed_by']
 
     def clean(self) :
         # Super the clean method to maintain main validation and error messages
