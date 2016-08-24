@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Book
@@ -66,6 +67,7 @@ class ReviewList(View) :
 
         return render(request, "list-to-review.html", context)
 
+@login_required
 def review_book(request, pk) :
     """
     Review an individual book
