@@ -51,7 +51,7 @@ class ReviewFactory(BookFactory) :
     """
     Creates a book with a review.
     """
-    review = factory.faker('text', max_nb_chars = 400)
+    review = factory.Faker('text', max_nb_chars = 400)
     date_reviewed = now()
     # a foreign key is much more easier than a many to many relationship
     # this means that any time we create a ReviewFactory, we will also create a subfactory UserFactory
