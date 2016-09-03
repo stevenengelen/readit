@@ -45,7 +45,7 @@ class TestReviewList(TestCase) :
         # check what happens when we acces the review page with an unauthenticated user
         # for this we are going to do a simple print statement to see it in the terminal
         response = self.client.get(reverse('review-books'))
-        print(response.status_code)
+        # print(response.status_code)
         # it should print a redirect code, and it will redirect us to the login page (see settings.py)
         self.assertEqual(response.status_code, 302)
 
