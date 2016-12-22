@@ -109,7 +109,7 @@ elif DJANGO_MODE == 'staging' :
 elif DJANGO_MODE == 'production' :
     import dj_database_url
     # Handles DATABSE_URL environment variable
-    DATABASES = {'default' : dj_databse_url.config()}
+    DATABASES = {'default' : dj_database_url.config()}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
